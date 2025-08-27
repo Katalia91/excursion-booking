@@ -110,6 +110,48 @@ Zauważ, że w kodzie występują prototypy (`.*--prototype`). Są one używane 
 
 Docelowo mają być one niewidoczne – możesz je ukryć przy pomocy CSS (`display: none`). Warto je jednak wykorzystać do skopiowania struktury kodu HTML, aby nie musieć budować jej od podstaw w kodzie JS.
 
+## Jak usprawnić sobie implementację?
+
+Jeśli dojdziesz do etapu, gdzie ładowanie wycieczek już Ci działa i przechodzisz do następnego to warto zastanowić się jak nie musieć za każdym razem ładować zawartości pliku.
+
+Tutaj wystarczy, że w kodzie przekleisz jego zawartość do zmiennej i to ją będziesz parsował. To będzie tymczasowe rozwiązanie, ale dzięki niemu zaoszczędzisz mnóstwo czasu.
+
+Poniżej znajdziesz przykładowe rozwiązanie (nie jest ono idelane więc skopiuj jedynie koncepcję):
+> Zwróć uwagę, że wszystkie czynności dot. zdarzenia zostały zakomentowane.
+```
+function readFileMock() {
+    // const file = e.target.files[0]
+    // if (file && file.name.endsWith('.csv')) {
+        // const reader = new FileReader();
+        const prototypeEl = document.querySelector('.excursions__item--prototype');
+        const ulEl = document.querySelector('.excursions');
+        // reader.onload = function (readerEvent) {
+
+
+            const mock = `"1","Ogrodzieniec","Zamek Ogrodzieniec – ruiny zamku leżącego na Jurze Krakowsko-Częstochowskiej, wybudowanego w systemie tzw. Orlich Gniazd, we wsi Podzamcze w województwie śląskim, w powiecie zawierciańskim, około 2 km na wschód od Ogrodzieńca. Zamek został wybudowany w XIV – XV w. przez ród Włodków Sulimczyków.","99","50"
+"2","Ojców","wieś w województwie małopolskim, w powiecie krakowskim, w gminie Skała, na terenie Wyżyny Krakowsko-Częstochowskiej, w Dolinie Prądnika, na Szlaku Orlich Gniazd. W Królestwie Polskim istniała gmina Ojców. W latach 1975–1998 miejscowość położona była w województwie krakowskim. W latach 1928–1966 Ojców miał status uzdrowiska posiadającego charakter użyteczności publicznej.","40","15"`
+            const rows = mock.split(/[\r\n]+/gm);
+            // const rows = readerEvent.target.result.split(/[\r\n]+/gm);
+            const data = rows.map(row => row.split('","'));
+            data.forEach(function (item) {
+                const protoClone = prototypeEl.cloneNode(true);
+                protoClone.querySelector('.excursions__title').innerText = item[1];
+                protoClone.querySelector('.excursions__description').innerText = item[2];
+                const pricesList = protoClone.querySelectorAll('.excursions__price');
+                pricesList[0].innerText = item[3];
+                pricesList[1].innerText = parseInt(item[4]);
+                ulEl.appendChild(protoClone)
+                protoClone.classList.remove('excursions__item--prototype');
+            });
+        // };
+        // reader.readAsText(file);
+
+    // } else {
+        // alert('Wybierz plik CSV');
+    // }
+}
+```
+
 
 &nbsp;
 
