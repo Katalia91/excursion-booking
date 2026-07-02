@@ -16,14 +16,16 @@ function readFile(e) {
       const excursionPanel = document.querySelector(".excursions__item");
       const excursionFileResult = readerEvent.target.result;
       /* Divide file into separate rows */
-      const excursionFileSingle = excursionFileResult.split(/[\r\n]+/gm);
-      excursionFileSingle.forEach(function (el) {
+      const excursionFileSingleRow = excursionFileResult.split(/[\r\n]+/gm);
+      excursionFileSingleRow.forEach(function (el) {
         /* Divide strings */
-        const newEl = el.split('","');
-        /* Remove first apostrophe */
-        const cleanedNewEl = newEl[0].slice(1);
-        console.log(newEl);
-        console.log(cleanedNewEl);
+        const singleElement = el.split('","');
+        console.log(singleElement);
+        singleElement[0] = singleElement[0].slice(1);
+        singleElement[singleElement.length - 1] = singleElement[
+          singleElement.length - 1
+        ].slice(0, -1);
+        console.log(singleElement);
       });
     };
     reader.readAsText(file);
