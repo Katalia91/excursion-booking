@@ -126,10 +126,14 @@ function displaySummary() {
       summaryListItemPrototypeClone.querySelector(".summary__name");
     const summaryElementTotalPrice =
       summaryListItemPrototypeClone.querySelector(".summary__total-price");
+    const summaryPriceDetails =
+      summaryListItemPrototypeClone.querySelector(".summary__prices");
 
     summaryList.appendChild(summaryListItemPrototypeClone);
     summaryListItemPrototypeClone.classList.remove("summary__item--prototype");
+    summaryPriceDetails.innerText = `dorośli: ${item.nrOfAdults} x ${item.pricePerAdult}PLN, dzieci: ${item.nrOfChildren} x ${item.pricePerChild}PLN`;
     summaryElementTitle.innerText = item.title;
     summaryElementTotalPrice.innerText = `${item.totalPrice}PLN`;
   });
 }
+const removeButton = document.querySelector(".summary__btn-remove");
