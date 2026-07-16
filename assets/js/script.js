@@ -1,13 +1,12 @@
-const txt = `"1","Ogrodzieniec","Zamek Ogrodzieniec – ruiny zamku leżącego na Jurze Krakowsko-Częstochowskiej, wybudowanego w systemie tzw. Orlich Gniazd, we wsi Podzamcze w województwie śląskim, w powiecie zawierciańskim, około 2 km na wschód od Ogrodzieńca. Zamek został wybudowany w XIV – XV w. przez ród Włodków Sulimczyków.","99PLN","50PLN"
-"2","Ojców","wieś w województwie małopolskim, w powiecie krakowskim, w gminie Skała, na terenie Wyżyny Krakowsko-Częstochowskiej, w Dolinie Prądnika, na Szlaku Orlich Gniazd. W Królestwie Polskim istniała gmina Ojców. W latach 1975–1998 miejscowość położona była w województwie krakowskim. W latach 1928–1966 Ojców miał status uzdrowiska posiadającego charakter użyteczności publicznej.","40PLN","15PLN`;
-
-// console.log(txt.split(/[\r\n]+/gm));
-
 const excursionFile = document.querySelector(".uploader__input");
 excursionFile.addEventListener("change", readFile);
 const excursionList = document.querySelector(".excursions");
 excursionList.addEventListener("click", addToBasket);
 const basket = [];
+
+document.addEventListener("DOMContentLoaded", updateTotalPrice);
+const orderForm = document.querySelector(".panel__order");
+orderForm.addEventListener("submit", placeOrder);
 
 function readFile(e) {
   const file = e.target.files[0];
@@ -80,18 +79,25 @@ function addToBasket(e) {
     const excursionTitleParent = formElement.parentElement;
     const excursionTitle =
       excursionTitleParent.querySelector(".excursions__title").textContent;
-    basket.push({
-      title: excursionTitle,
-      nrOfAdults,
-      nrOfChildren,
-      pricePerAdult: priceAdult,
-      pricePerChild: priceChild,
-      totalPrice: prices.sumPriceAll,
-    });
-    console.log(basket);
-    updateTotalPrice();
-    displaySummary();
-    formElement.reset();
+    const addToBasketMessage = formElement.querySelector(".validation-error");
+
+    if (nrOfAdults > 0 || nrOfChildren > 0) {
+      addToBasketMessage.innerText = "";
+      basket.push({
+        title: excursionTitle,
+        nrOfAdults,
+        nrOfChildren,
+        pricePerAdult: priceAdult,
+        pricePerChild: priceChild,
+        totalPrice: prices.sumPriceAll,
+      });
+      updateTotalPrice();
+      displaySummary();
+      formElement.reset();
+    } else {
+      addToBasketMessage.innerText =
+        "Musisz wpisać co najmniej jedną osobę, żeby dodać wycieczkę do koszyka";
+    }
   }
 }
 
@@ -119,9 +125,15 @@ function displaySummary() {
   summaryList
     .querySelectorAll(".summary__item:not(.summary__item--prototype)")
     .forEach((item) => item.remove());
-  basket.forEach(function (item) {
+  basket.forEach(function (item, index) {
     const summaryListItemPrototypeClone =
       summaryListItemPrototype.cloneNode(true);
+    const removeButton = summaryListItemPrototypeClone.querySelector(
+      ".summary__btn-remove",
+    );
+    removeButton.addEventListener("click", (event) =>
+      removeFromBasket(event, index),
+    );
     const summaryElementTitle =
       summaryListItemPrototypeClone.querySelector(".summary__name");
     const summaryElementTotalPrice =
@@ -136,4 +148,52 @@ function displaySummary() {
     summaryElementTotalPrice.innerText = `${item.totalPrice}PLN`;
   });
 }
-const removeButton = document.querySelector(".summary__btn-remove");
+
+function removeFromBasket(event, index) {
+  event.preventDefault();
+  basket.splice(index, 1);
+  displaySummary();
+  updateTotalPrice();
+}
+
+function placeOrder(e) {
+  e.preventDefault();
+  const errors = isFormValid();
+  const errorMessage = orderForm.querySelectorAll(".validation-error");
+  errorMessage.forEach(function (errorMessage) {
+    errorMessage.innerText = "";
+  });
+
+  if (errors.length > 0) {
+    displayErrors(errors);
+  } else {
+    alert("Zamówienie zostało złożone.");
+    orderForm.reset();
+  }
+}
+
+function isFormValid() {
+  const errors = [];
+  const orderNameField = document.querySelector("input[name='name']");
+  const orderNameFieldValue = orderNameField.value;
+  const orderEmailField = document.querySelector("input[name='email']");
+  const orderEmailFieldValue = orderEmailField.value;
+  if (orderNameFieldValue.length < 1) {
+    errors.push({ field: "name", message: "Wpisz imię i nazwisko" });
+  }
+  if (!orderEmailFieldValue.includes("@")) {
+    errors.push({ field: "email", message: "Wpisz poprawny adres e-mail" });
+  }
+  return errors;
+}
+
+function displayErrors(errors) {
+  errors.forEach(function (error) {
+    const formField = document.querySelector(
+      `input[name="${error.field}"]`,
+    ).parentElement;
+    const errorField =
+      formField.parentElement.querySelector(".validation-error");
+    errorField.innerText = error.message;
+  });
+}
