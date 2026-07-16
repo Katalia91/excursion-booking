@@ -51,3 +51,7 @@ ul {
 .summary__item--prototype {
   display: none;
 }
+
+.validation-error {
+  color: red;
+}
