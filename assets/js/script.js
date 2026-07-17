@@ -61,8 +61,8 @@ function addToBasket(e) {
   e.preventDefault();
 
   if (e.target.classList.contains("excursions__field-input--submit")) {
-    const divParent = e.target.parentElement;
-    const formElement = divParent.parentElement;
+    const btnParent = e.target.parentElement;
+    const formElement = btnParent.parentElement;
     const priceAdult = formElement.dataset.priceAdult;
     const priceChild = formElement.dataset.priceChild;
 
@@ -158,7 +158,11 @@ function removeFromBasket(event, index) {
 
 function placeOrder(e) {
   e.preventDefault();
-  const errors = isFormValid();
+  const orderNameField = document.querySelector("input[name='name']");
+  const orderNameFieldValue = orderNameField.value;
+  const orderEmailField = document.querySelector("input[name='email']");
+  const orderEmailFieldValue = orderEmailField.value;
+  const errors = isFormValid(orderNameFieldValue, orderEmailFieldValue);
   const errorMessage = orderForm.querySelectorAll(".validation-error");
   errorMessage.forEach(function (errorMessage) {
     errorMessage.innerText = "";
@@ -167,21 +171,22 @@ function placeOrder(e) {
   if (errors.length > 0) {
     displayErrors(errors);
   } else {
-    alert("Zamówienie zostało złożone.");
+    const totalOrderPrice = orderForm.querySelector(
+      ".order__total-price-value",
+    ).textContent;
+    alert(
+      `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice} PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
+    );
     orderForm.reset();
   }
 }
 
-function isFormValid() {
+function isFormValid(name, email) {
   const errors = [];
-  const orderNameField = document.querySelector("input[name='name']");
-  const orderNameFieldValue = orderNameField.value;
-  const orderEmailField = document.querySelector("input[name='email']");
-  const orderEmailFieldValue = orderEmailField.value;
-  if (orderNameFieldValue.length < 1) {
+  if (name.length < 1) {
     errors.push({ field: "name", message: "Wpisz imię i nazwisko" });
   }
-  if (!orderEmailFieldValue.includes("@")) {
+  if (!email.includes("@")) {
     errors.push({ field: "email", message: "Wpisz poprawny adres e-mail" });
   }
   return errors;
