@@ -178,6 +178,9 @@ function placeOrder(e) {
       `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice} PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
     );
     orderForm.reset();
+    basket.length = 0;
+    displaySummary();
+    updateTotalPrice();
   }
 }
 
