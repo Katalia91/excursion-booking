@@ -96,7 +96,7 @@ function addToBasket(e) {
       formElement.reset();
     } else {
       addToBasketMessage.innerText =
-        "Musisz wpisać co najmniej jedną osobę, żeby dodać wycieczkę do koszyka";
+        "You have to add at least one person to be able to add excursion to the basket";
     }
   }
 }
@@ -113,7 +113,7 @@ function updateTotalPrice() {
   basket.forEach(function (excursion) {
     totalPriceAll += excursion.totalPrice;
   });
-  totalPrice.innerText = `${totalPriceAll}PLN`;
+  totalPrice.innerText = `${totalPriceAll} PLN`;
 }
 
 function displaySummary() {
@@ -143,9 +143,9 @@ function displaySummary() {
 
     summaryList.appendChild(summaryListItemPrototypeClone);
     summaryListItemPrototypeClone.classList.remove("summary__item--prototype");
-    summaryPriceDetails.innerText = `dorośli: ${item.nrOfAdults} x ${item.pricePerAdult}PLN, dzieci: ${item.nrOfChildren} x ${item.pricePerChild}PLN`;
+    summaryPriceDetails.innerText = `dorośli: ${item.nrOfAdults} x ${item.pricePerAdult} PLN, dzieci: ${item.nrOfChildren} x ${item.pricePerChild} PLN`;
     summaryElementTitle.innerText = item.title;
-    summaryElementTotalPrice.innerText = `${item.totalPrice}PLN`;
+    summaryElementTotalPrice.innerText = `${item.totalPrice} PLN`;
   });
 }
 
@@ -175,7 +175,7 @@ function placeOrder(e) {
       ".order__total-price-value",
     ).textContent;
     alert(
-      `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice} PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
+      `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice}  PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
     );
     orderForm.reset();
     basket.length = 0;
@@ -187,10 +187,13 @@ function placeOrder(e) {
 function isFormValid(name, email) {
   const errors = [];
   if (name.length < 1) {
-    errors.push({ field: "name", message: "Wpisz imię i nazwisko" });
+    errors.push({ field: "name", message: "Write name and last name" });
   }
   if (!email.includes("@")) {
-    errors.push({ field: "email", message: "Wpisz poprawny adres e-mail" });
+    errors.push({
+      field: "email",
+      message: "Write correct e-mail address",
+    });
   }
   return errors;
 }
