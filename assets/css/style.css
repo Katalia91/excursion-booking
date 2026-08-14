@@ -1,13 +1,36 @@
+:root {
+  --primary-border: dashed 1px grey;
+  --primary-border-radius: 10px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Arimo", sans-serif;
 }
-
+body {
+  margin: 40px auto;
+  max-width: 1200px;
+}
+h2 {
+  margin-bottom: 14px;
+}
+p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+label {
+  font-size: 16px;
+}
 ul {
   list-style: none;
 }
-
+header:not(.excursions__header) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .panel {
   display: flex;
   margin: 0 auto;
@@ -22,28 +45,41 @@ ul {
 .excursions {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .excursions__item {
-  border: 1px solid #bbb;
-  border-radius: 5px;
-  margin: 10px;
+  border: var(--primary-border);
+  border-radius: var(--primary-border-radius);
+  /* margin: 10px; */
   padding: 20px;
   width: calc(50% - 20px);
 }
 .excursions__item--prototype {
-  display: none;
+  /* display: none; */
 }
 
 .panel__form {
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4;
   padding: 20px;
   width: 30%;
+  border-radius: var(--primary-border-radius); */
+}
+.uploader {
+  margin: 40px auto;
+  /* max-width: 1200px; */
+}
+.uploader label {
+  border: var(--primary-border);
+  border-radius: var(--primary-border-radius);
+  display: flex;
+  justify-content: space-between;
+  /* margin: 10px; */
+  padding: 20px;
 }
 
 .uploader,
 .order {
-  border-bottom: 1px solid #bbb;
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
@@ -54,4 +90,23 @@ ul {
 
 .validation-error {
   color: red;
+}
+input[type="submit"] {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  cursor: pointer;
+}
+.panel__summary,
+.order__total-price,
+.panel__order {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: var(--primary-border-radius);
+}
+
+.panel__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
