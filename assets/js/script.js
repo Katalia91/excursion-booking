@@ -3,8 +3,10 @@ excursionFile.addEventListener("change", readFile);
 const excursionList = document.querySelector(".excursions");
 excursionList.addEventListener("click", addToBasket);
 const basket = [];
-
+const clearBasketBtn = document.querySelector(".summary__btn-clear");
 document.addEventListener("DOMContentLoaded", updateTotalPrice);
+const emptyMessageSummary = document.querySelector(".summary__empty");
+const emptyMessageExcursions = document.querySelector(".excursions__empty");
 const orderForm = document.querySelector(".panel__order");
 orderForm.addEventListener("submit", placeOrder);
 
@@ -33,6 +35,8 @@ function readFile(e) {
       });
     };
     reader.readAsText(file);
+    excursionFile.disabled = true;
+    emptyMessageExcursions.classList.add("hidden");
   }
 }
 
@@ -91,6 +95,9 @@ function addToBasket(e) {
         pricePerChild: priceChild,
         totalPrice: prices.sumPriceAll,
       });
+      if (basket.length > 0) {
+        emptyMessageSummary.classList.add("hidden");
+      }
       updateTotalPrice();
       displaySummary();
       formElement.reset();
@@ -138,15 +145,20 @@ function displaySummary() {
       summaryListItemPrototypeClone.querySelector(".summary__name");
     const summaryElementTotalPrice =
       summaryListItemPrototypeClone.querySelector(".summary__total-price");
-    const summaryPriceDetails =
-      summaryListItemPrototypeClone.querySelector(".summary__prices");
+    const summaryPriceDetailsAdults =
+      summaryListItemPrototypeClone.querySelector(".summary__prices-adults");
+    const summaryPriceDetailsChildren =
+      summaryListItemPrototypeClone.querySelector(".summary__prices-children");
 
     summaryList.appendChild(summaryListItemPrototypeClone);
     summaryListItemPrototypeClone.classList.remove("summary__item--prototype");
-    summaryPriceDetails.innerText = `dorośli: ${item.nrOfAdults} x ${item.pricePerAdult} PLN, dzieci: ${item.nrOfChildren} x ${item.pricePerChild} PLN`;
+    summaryPriceDetailsAdults.innerText = `adults: ${item.nrOfAdults} x ${item.pricePerAdult} PLN`;
+    summaryPriceDetailsChildren.innerText = `children: ${item.nrOfChildren} x ${item.pricePerChild} PLN`;
     summaryElementTitle.innerText = item.title;
-    summaryElementTotalPrice.innerText = `${item.totalPrice} PLN`;
+    summaryElementTotalPrice.innerText = `Total: ${item.totalPrice} PLN`;
   });
+  clearBasketBtn.classList.add("active");
+  clearBasketBtn.addEventListener("click", removeAllFromBasket);
 }
 
 function removeFromBasket(event, index) {
@@ -155,7 +167,14 @@ function removeFromBasket(event, index) {
   displaySummary();
   updateTotalPrice();
 }
-
+function removeAllFromBasket(event) {
+  event.preventDefault();
+  basket.length = 0;
+  displaySummary();
+  updateTotalPrice();
+  clearBasketBtn.classList.remove("active");
+  emptyMessageSummary.classList.remove("hidden");
+}
 function placeOrder(e) {
   e.preventDefault();
   const orderNameField = document.querySelector("input[name='name']");
@@ -171,11 +190,11 @@ function placeOrder(e) {
   if (errors.length > 0) {
     displayErrors(errors);
   } else {
-    const totalOrderPrice = orderForm.querySelector(
+    const totalOrderPrice = document.querySelector(
       ".order__total-price-value",
     ).textContent;
     alert(
-      `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice}  PLN. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
+      `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice}. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
     );
     orderForm.reset();
     basket.length = 0;

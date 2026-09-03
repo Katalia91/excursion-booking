@@ -22,74 +22,92 @@
         </ul>
       </nav>
     </header>
-    <div class="panel__uploader uploader">
+    <section class="panel__uploader uploader">
       <label class="uploader__label" for="file">
         Upload file with excursions (CSV)
         <input class="uploader__input" type="file" accept=".csv" id="file" />
       </label>
-    </div>
-    <section class="panel">
-      <ul class="panel__excursions excursions">
-        <li class="excursions__item excursions__item--prototype">
-          <header class="excursions__header">
-            <h2 class="excursions__title">Tytuł</h2>
-            <p class="excursions__description">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
-              aliquam quam laboriosam quaerat temporibus dicta vitae maxime!
-              Nemo, nobis veritatis?
-            </p>
-          </header>
-          <form class="excursions__form" data-price-child data-price-adult>
-            <div class="excursions__field">
-              <label class="excursions__field-name">
-                Adult: <span class="excursions__price">99</span> PLN x
+    </section>
+    <main class="panel">
+      <section class="panel__excursions">
+        <h2>Available excursions</h2>
+        <p class="excursions__empty">
+          Available excursions will appear here after uploading a CSV file.
+        </p>
+        <ul class="excursions">
+          <li class="excursions__item excursions__item--prototype">
+            <header class="excursions__header">
+              <h3 class="excursions__title">Tytuł</h3>
+              <p class="excursions__description">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
+                aliquam quam laboriosam quaerat temporibus dicta vitae maxime!
+                Nemo, nobis veritatis?
+              </p>
+            </header>
+            <form class="excursions__form" data-price-child data-price-adult>
+              <div class="excursions__field">
+                <label class="excursions__field-name">
+                  Adult:
+                  <div class="excursions__field-price">
+                    <span class="excursions__price">99</span> PLN / person
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      class="excursions__field-input"
+                      name="adults"
+                    />
+                  </div>
+                </label>
+              </div>
+              <div class="excursions__field">
+                <label class="excursions__field-name">
+                  Child:
+                  <div class="excursions__field-price">
+                    <span class="excursions__price">50</span> PLN / person
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      class="excursions__field-input"
+                      name="children"
+                    />
+                  </div>
+                </label>
+              </div>
+              <div class="excursions__field excursions__field--submit">
                 <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  class="excursions__field-input"
-                  name="adults"
+                  class="excursions__field-input excursions__field-input--submit"
+                  value="Add to basket"
+                  type="submit"
                 />
-              </label>
-            </div>
-            <div class="excursions__field">
-              <label class="excursions__field-name">
-                Child: <span class="excursions__price">50</span> PLN x
-                <input
-                  type="number"
-                  min="0"
-                  step="1"
-                  class="excursions__field-input"
-                  name="children"
-                />
-              </label>
-            </div>
-            <div class="excursions__field excursions__field--submit">
-              <input
-                class="excursions__field-input excursions__field-input--submit"
-                value="add to basket"
-                type="submit"
-              />
-            </div>
-            <span class="validation-error"></span>
-          </form>
-        </li>
-      </ul>
-      <section class="panel__form">
-        <ul class="panel__summary summary">
-          <h2>Your basket</h2>
-          <p>Your basket is empty at the moment</p>
-          <li class="summary__item summary__item--prototype">
-            <h3 class="summary__title">
-              <span class="summary__name">Ogrodzieniec</span>
-              <strong class="summary__total-price">199PLN</strong>
-              <a href="" class="summary__btn-remove" title="usuń">X</a>
-            </h3>
-            <p class="summary__prices">
-              adults: 1 x 99PLN, children: 2 x 50PLN
-            </p>
+              </div>
+              <span class="validation-error"></span>
+            </form>
           </li>
         </ul>
+      </section>
+      <aside class="panel__form">
+        <div class="panel__summary-wrapper">
+          <ul class="panel__summary summary">
+            <h2>Your basket</h2>
+            <p class="summary__empty">Your basket is empty at the moment</p>
+            <li class="summary__item summary__item--prototype">
+              <div class="summary__item-header">
+                <h3 class="summary__title">
+                  <span class="summary__name">Ogrodzieniec</span>
+                </h3>
+                <a href="" class="summary__btn-remove" title="usuń">X</a>
+              </div>
+              <div class="summary__prices">
+                <p class="summary__prices-adults">adults: 1 x 99PLN</p>
+                <p class="summary__prices-children">children: 2 x 50PLN</p>
+                <p class="summary__total-price">Total: 199PLN</p>
+              </div>
+            </li>
+          </ul>
+          <button class="summary__btn-clear">Clear basket</button>
+        </div>
         <div class="order__total-price">
           <h2>Total: <span class="order__total-price-value">199PLN</span></h2>
           <span>The total amount includes all trips</span>
@@ -112,13 +130,13 @@
           <div class="order__field order__field--submit">
             <input
               class="order__field-input order__field-submit"
-              value="order"
+              value="Place order"
               type="submit"
             />
           </div>
         </form>
-      </section>
-    </section>
+      </aside>
+    </main>
 
     <script src="./assets/js/script.js"></script>
   </body>
