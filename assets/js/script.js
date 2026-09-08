@@ -120,7 +120,7 @@ function updateTotalPrice() {
   basket.forEach(function (excursion) {
     totalPriceAll += excursion.totalPrice;
   });
-  totalPrice.innerText = `${totalPriceAll} PLN`;
+  totalPrice.innerText = `${totalPriceAll} EUR`;
 }
 
 function displaySummary() {
@@ -152,10 +152,10 @@ function displaySummary() {
 
     summaryList.appendChild(summaryListItemPrototypeClone);
     summaryListItemPrototypeClone.classList.remove("summary__item--prototype");
-    summaryPriceDetailsAdults.innerText = `adults: ${item.nrOfAdults} x ${item.pricePerAdult} PLN`;
-    summaryPriceDetailsChildren.innerText = `children: ${item.nrOfChildren} x ${item.pricePerChild} PLN`;
+    summaryPriceDetailsAdults.innerText = `adults: ${item.nrOfAdults} x ${item.pricePerAdult} EUR`;
+    summaryPriceDetailsChildren.innerText = `children: ${item.nrOfChildren} x ${item.pricePerChild} EUR`;
     summaryElementTitle.innerText = item.title;
-    summaryElementTotalPrice.innerText = `Total: ${item.totalPrice} PLN`;
+    summaryElementTotalPrice.innerText = `Total: ${item.totalPrice} EUR`;
   });
   clearBasketBtn.classList.add("active");
   clearBasketBtn.addEventListener("click", removeAllFromBasket);
@@ -189,7 +189,7 @@ function placeOrder(e) {
 
   if (errors.length > 0) {
     displayErrors(errors);
-  } else {
+  } else if (basket.length !== 0) {
     const totalOrderPrice = document.querySelector(
       ".order__total-price-value",
     ).textContent;
@@ -200,6 +200,12 @@ function placeOrder(e) {
     basket.length = 0;
     displaySummary();
     updateTotalPrice();
+    clearBasketBtn.classList.remove("active");
+    emptyMessageSummary.classList.remove("hidden");
+  } else {
+    alert(
+      `You have to add at least one excursion to the basket to be able to place an order`,
+    );
   }
 }
 

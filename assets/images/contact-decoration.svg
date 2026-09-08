@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1000 700"
+     width="1000"
+     height="700"
+     fill="none">
+
+  <!-- Orange organic shape -->
+  <path
+    d="M690 0H1000V260
+       C910 265 855 235 825 180
+       C795 125 765 90 700 70
+       C675 62 650 45 635 0Z"
+    fill="#FF5A1F"/>
+
+  <!-- Navy organic shape -->
+  <path
+    d="M575 700H1000V395
+       C945 415 910 455 890 505
+       C865 570 825 610 760 625
+       C690 641 625 650 575 700Z"
+    fill="#15273F"/>
+
+  <!-- Pale pink decorative curve -->
+  <path
+    d="M800 700
+       C790 665 805 625 850 590
+       C900 550 950 525 1000 510"
+    stroke="#FCE4E8"
+    stroke-width="5"
+    stroke-linecap="round"/>
+</svg>

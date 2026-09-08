@@ -3,25 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Contact me</title>
   </head>
-  <body>
-    <header>
+  <body class="contact-page">
+    <header class="contact-header">
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html">Back to project</a></li>
         </ul>
       </nav>
     </header>
-    <h1>Contact details</h1>
-    <p>
-      Hey! Do you like my project? Perhaps I'm the missing link in your company?
-      Let's have a chat!
-    </p>
-    <button>
-      <a href="mailto:natalia.kur@yahoo.com?subject=Invitation for an interview"
-        >E-mail me</a
+    <div class="contact-card">
+      <div class="contact-card__content">
+        <h1>Hey! Do you like my project?</h1>
+
+        <p class="contact-card__headline">
+          Perhaps I'm the missing link in your company?
+          <em>Let's have a chat!</em>
+        </p>
+
+        <p class="contact-card__description">
+          I'm a frontend developer with 5 years of commercial experience,
+          creating accessible, user-friendly and engaging web experiences with
+          JavaScript, React, TypeScript and modern CMS platforms.
+        </p>
+
+        <a
+          href="https://www.linkedin.com/in/natalia-kur/"
+          target="_blank"
+          class="contact-card__button"
+        >
+          Connect on LinkedIn →
+        </a>
+      </div>
+      <svg
+        viewBox="0 0 600 900"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
       >
-    </button>
+        <!-- orange shape -->
+        <path
+          d="M180 0
+                   H600
+                   V320
+                   C500 320 455 290 425 235
+                   C390 170 350 145 285 125
+                   C225 105 190 70 180 0Z"
+          fill="#FF5A1F"
+        />
+
+        <!-- navy shape -->
+        <path
+          d="M600 500
+                   V900
+                   H50
+                   C115 800 180 735 280 700
+                   C380 665 430 650 465 560
+                   C490 500 535 480 600 500Z"
+          fill="#142640"
+        />
+      </svg>
+    </div>
   </body>
 </html>
