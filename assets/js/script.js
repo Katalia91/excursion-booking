@@ -177,7 +177,7 @@ function removeAllFromBasket(event) {
 }
 function placeOrder(e) {
   e.preventDefault();
-  const orderNameField = document.querySelector("input[name='name']");
+  const orderNameField = document.querySelector("input[name='fullName']");
   const orderNameFieldValue = orderNameField.value;
   const orderEmailField = document.querySelector("input[name='email']");
   const orderEmailFieldValue = orderEmailField.value;
@@ -194,7 +194,7 @@ function placeOrder(e) {
       ".order__total-price-value",
     ).textContent;
     alert(
-      `${orderNameFieldValue}, dziękujemy za złożenie zamówienia o wartości ${totalOrderPrice}. Szczegóły zamówienia zostały wysłane na adres e-mail: ${orderEmailFieldValue}`,
+      `${orderNameFieldValue}, thank you for placing the order with a value of ${totalOrderPrice}. Order details have been sent to the email address: ${orderEmailFieldValue}`,
     );
     orderForm.reset();
     basket.length = 0;
