@@ -157,7 +157,12 @@ function displaySummary() {
     summaryElementTitle.innerText = item.title;
     summaryElementTotalPrice.innerText = `Total: ${item.totalPrice} EUR`;
   });
-  clearBasketBtn.classList.add("active");
+  if (basket.length > 0) {
+    clearBasketBtn.classList.add("active", "btn");
+  } else {
+    clearBasketBtn.classList.remove("active", "btn");
+    emptyMessageSummary.classList.remove("hidden");
+  }
   clearBasketBtn.addEventListener("click", removeAllFromBasket);
 }
 
@@ -172,7 +177,7 @@ function removeAllFromBasket(event) {
   basket.length = 0;
   displaySummary();
   updateTotalPrice();
-  clearBasketBtn.classList.remove("active");
+  clearBasketBtn.classList.remove("active", "btn");
   emptyMessageSummary.classList.remove("hidden");
 }
 function placeOrder(e) {
