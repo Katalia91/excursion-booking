@@ -4,6 +4,8 @@ A responsive excursion booking application built with vanilla JavaScript, HTML a
 
 The application allows users to import excursion data from a CSV file, select the number of adults and children, add excursions to a basket and place an order.
 
+![Project screenshot](assets/images/screenshot-desktop.jpg)
+
 ## CSV format
 
 The application expects a CSV file with the following columns:
