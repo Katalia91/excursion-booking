@@ -12,6 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap"
       rel="stylesheet"
     />
+<script src="https://kit.fontawesome.com/5882f1caf9.js" crossorigin="anonymous"></script>
   </head>
   <body class="home-page">
     <header class="home-page--header">
@@ -36,6 +37,7 @@
           Upload file with excursions (CSV)
           <input class="uploader__input" type="file" accept=".csv" id="file" />
         </label>
+        <p class="uploader--note"><i class="fa-solid fa-circle-info" style="color: #080e53;"></i> Example .csv file you can use to test the solution: <a href="data/example.csv" download>Example.csv <i class="fa-solid fa-file-arrow-down" style="color: #080e53;"></i> </a></p>
       </section>
       <main class="panel">
         <section class="panel__excursions">
@@ -110,7 +112,7 @@
                   <h3 class="summary__title">
                     <span class="summary__name">Ogrodzieniec</span>
                   </h3>
-                  <button class="summary__btn-remove" title="Remove excursion from basket">X</button>
+                  <button class="summary__btn-remove" title="Remove excursion from basket"><i class="fa-regular fa-circle-xmark" style="color: #080e53;"></i></button>
                 </div>
                 <div class="summary__prices">
                   <p class="summary__prices-adults">adults: 1 x 10EUR</p>
