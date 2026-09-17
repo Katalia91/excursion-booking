@@ -236,6 +236,13 @@ header:not(.excursions__header):not(.contact-header) {
 .summary__btn-clear {
   display: none;
 }
+.summary__btn-remove {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 .validation-error {
   color: red;
 }
