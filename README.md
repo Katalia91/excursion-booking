@@ -37,7 +37,7 @@ The excursion descriptions in the example CSV are based on information from Wiki
 - [Royal Castle, Warsaw – Wikipedia](https://en.wikipedia.org/wiki/Royal_Castle,_Warsaw)
 
 ## Live Demo
-Coming soon.
+[View the live demo](https://excursion-booking.netlify.app/)
 
 ## Technologies
 
