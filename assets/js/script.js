@@ -174,11 +174,13 @@ function removeFromBasket(event, index) {
 }
 function removeAllFromBasket(event) {
   event.preventDefault();
-  basket.length = 0;
-  displaySummary();
-  updateTotalPrice();
-  clearBasketBtn.classList.remove("active", "btn");
-  emptyMessageSummary.classList.remove("hidden");
+  if (confirm("Are you sure you want to empty the basket?")) {
+    basket.length = 0;
+    displaySummary();
+    updateTotalPrice();
+    clearBasketBtn.classList.remove("active", "btn");
+    emptyMessageSummary.classList.remove("hidden");
+  }
 }
 function placeOrder(e) {
   e.preventDefault();
